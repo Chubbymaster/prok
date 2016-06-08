@@ -7,15 +7,15 @@ public class Aminal{
 	private String type;
 	private double speed;
 	private Polygon hitbox;
-	private Point p;
+	private Point location;
 	
 	public void Animal(String animalType, boolean direction){
 		type = animalType;
 		right = direction;
 		Random randy = new Random();
-		speed = randy.nextDouble()*100;
+		speed = randy.nextDouble();
 		Point[] boxP = {new Point(0,0), new Point(100,0), new Point(100,90), new Point(0,90)};
-		p = new Point(randy.nextInt(1720)+101,980);
+		location = new Point(randy.nextInt(1720)+101,980);
 		hitbox = new Polygon(boxP,p,0);
 	}
 	
@@ -38,5 +38,18 @@ public class Aminal{
 	
 	public boolean getDirection(){
 		return right;
+	}
+	
+	public void move(){
+		if(right){
+			if(location.x<1820){
+				location = new Point(location.y, location.x+speed);
+			}
+		}
+		else{
+			if(location.x>100){
+				location = new Point(location.y, location.x-speed);
+			}
+		}
 	}
 }

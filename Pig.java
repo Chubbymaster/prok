@@ -10,9 +10,16 @@ public class Pig implements KeyListener{
 	private double flight = 4;
 	private boolean right = false;
 	private int flapping = 10000;
+	private Image pigRight = new Image("file:pigRight.png");
+	private Image pigLeft = new Image("file:pigLeft.png");
+	private ImageView lookRight = new ImageView();
+	private ImageView lookLeft = new ImageView();
+	
 	public Pig(Point p, boolean direction){
 		right = direction;
 		location = p;
+		lookRight.setImage(pigRight);
+		lookLeft.setImage(pigLeft);
 	}
 
 

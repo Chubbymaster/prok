@@ -16,7 +16,7 @@ public class Aminal{
 		speed = randy.nextDouble();
 		Point[] boxP = {new Point(0,0), new Point(100,0), new Point(100,90), new Point(0,90)};
 		location = new Point(randy.nextInt(1720)+101,980);
-		hitbox = new Polygon(boxP,p,0);
+		hitbox = new Polygon(boxP,location,0);
 	}
 	
 	public void turn(){

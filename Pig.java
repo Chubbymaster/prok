@@ -3,7 +3,7 @@ package prokins;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Pig implements KeyListener{
+public class Pig implements KeyListener extends Aminal{
 	private int health = 1920;
 	private Point location = new Point(1920/2,1080/2);
 	private double gravity = 1;

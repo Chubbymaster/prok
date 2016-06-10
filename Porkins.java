@@ -20,7 +20,8 @@ public class Porkins extends Application{
 	public void start(Stage arg0) throws Exception {
 		g = new Game("ahhhh");
 		g.window.show();
-		Pig p = new Pig();
+		Point p = new Point(100, 200);
+		Pig pig = new Pig(p, true);
 		
 		new AnimationTimer(){
 			@Override

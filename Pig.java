@@ -10,14 +10,16 @@ public class Pig implements KeyListener extends Aminal{
 	private double flight = 4;
 	private boolean right = false;
 	private int flapping = 10000;
-	private Image pigRight = new Image("file:pigRight.png", 0, 75, true, false);
-	private Image pigLeft = new Image("file:pigLeft.png", 0, 75, true, false);
-	private ImageView prView = new ImageView(pigRight);
-	private ImageView lookLeft = new ImageView(pigLeft);
+	final Image PIGRIGHT = new Image("file:pigRight.png", 0, 75, true, false);
+	final Image PIGLEFT = new Image("file:pigLeft.png", 0, 75, true, false);
+	Image img;
+	ImageView iv;
 	
 	public Pig(Point p, boolean direction){
 		right = direction;
 		location = p;
+		img = PIGRIGHT;
+		iv = new ImageView(img);
 	}
 
 

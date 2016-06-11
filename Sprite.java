@@ -1,16 +1,18 @@
+package porkins.game;
+
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Sprite {
 	
-	private Image image;
-	private double x;
-	private double y;
-	private double width;
-	private double height;
-	private double xVel;
-	private double yVel;
+	public Image image;
+	protected double x;
+	protected double y;
+	protected double width;
+	protected double height;
+	protected double xVel;
+	protected double yVel;
 	
 	public Sprite(Image img, double xPos, double yPos, double w, double h, double xVelocity, double yVelocity){
 		image = img;
@@ -58,9 +60,16 @@ public class Sprite {
 		width = w;
 		height = h;
 	}
+	//use move instead of update
+	/*
 	public void update(double time){
 		x += xVel*time;
 		y += yVel*time;
+	}
+	*/
+	public void move(double xDist, double yDist){
+		x += xDist;
+		y += yDist;
 	}
 	
 	public void render(GraphicsContext gc){

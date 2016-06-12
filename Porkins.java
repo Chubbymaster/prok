@@ -17,7 +17,8 @@ import javafx.stage.Stage;
 
 public class Porkins extends Application{
 	Game g;
-	
+	final Image PIGRIGHT = new Image("file:pigRight.png", 0, 75, true, false);
+	final Image PIGLEFT = new Image("file:pigLeft.png", 0, 75, true, false);
 	
 
 	public static void main(String[] args){
@@ -31,17 +32,12 @@ public class Porkins extends Application{
 		g.window = st;
 		g.window.setScene(g.sc);
 		g.window.show();
-		//Point p = new Point(300, 300);
-		//Pig pig = new Pig(p, true);
-		//g.setFocusTraversable(true);
-		//g.addKeyListener();
-		//this.addKeyListener(g.pig);
-		//GraphicsContext gc = new GraphicsContext();
 		
-		//LongValue lastTime = new LongValue(System.nanoTime());
+		g.gc.setFill(Color.DARKRED);
+		g.gc.fillRect(1720, 0, 1820, 1080);
 		final long lastTime = System.nanoTime();
 		
-		final Sprite pigSprite = new Sprite(g.pig.img, g.pig.getLocation().getX(), g.pig.getLocation().getY(), g.pig.img.getWidth(), g.pig.img.getHeight(), 0, 0);
+		final PigSprite pigSprite = new PigSprite(PIGRIGHT, 0, 0, PIGRIGHT.getWidth(), PIGLEFT.getHeight(), 0, -10);
 		new AnimationTimer(){
 			@Override
 			public void handle(long currentTime) {
@@ -61,18 +57,18 @@ public class Porkins extends Application{
 					public void handle(KeyEvent e){
 						switch(e.getCode()) { 
 					        case RIGHT:
-					        	g.pig.img = g.pig.PIGRIGHT;
-					        	g.pig.iv.setImage(g.pig.img);
-					        	g.pig.xVel = 10;
+					        	pigSprite.image = PIGRIGHT;
+					        	//pigSprite.iv.setImage(pigSprite.img);
+					        	pigSprite.xVel = 10;
 					            break;
 					        case LEFT:
-					        	g.pig.img = g.pig.PIGLEFT;
-					        	g.pig.iv.setImage(g.pig.img);
-					        	g.pig.xVel = -10;
+					        	pigSprite.image = PIGLEFT;
+					        	//pigSprite.iv.setImage(g.pig.img);
+					        	pigSprite.xVel = -10;
 					        	//move();
 					        	break;
 					        case SPACE:
-					        	g.pig.yVel = -5;
+					        	pigSprite.yVel = -5;
 					        	break;
 						}
 
@@ -83,24 +79,27 @@ public class Porkins extends Application{
 					public void handle(KeyEvent e){
 						switch(e.getCode()){
 						case RIGHT:
-							g.pig.img = g.pig.PIGRIGHT;
-							g.pig.iv.setImage(g.pig.img);
-							g.pig.xVel = 0;
+							pigSprite.image = PIGRIGHT;
+							//g.pig.iv.setImage(g.pig.img);
+							pigSprite.xVel = 10;
 							break;
 						case LEFT:
-							g.pig.img = g.pig.PIGLEFT;
-							g.pig.iv.setImage(g.pig.img);
-							g.pig.xVel = 0;
+							pigSprite.image = g.pig.PIGLEFT;
+							//g.pig.iv.setImage(g.pig.img);
+							pigSprite.xVel = -10;
 							break;
 						case SPACE:
-							g.pig.yVel = 5;
+							pigSprite.yVel = 5;
 							break;
 						}
 					}
 				});
 				
-				pigSprite.move(g.pig.xVel, g.pig.yVel);
+				pigSprite.move(pigSprite.xVel, pigSprite.yVel);
 				pigSprite.render(g.gc);
+				pigSprite.decrHealth();
+				g.gc.setFill(Color.DARKRED);
+				g.gc.fillRect(0, 980, pigSprite.health, 1080);
 			}
 		}.start();
 	}

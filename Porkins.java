@@ -23,7 +23,10 @@ public class Porkins extends Application{
 	final Image HORSELEFT2 = new Image("file:horseLeft2.png", 0, 100, true, false);
 	final Image HORSERIGHT1 = new Image("file:horseRight1.png", 0, 100, true, false);
 	final Image HORSERIGHT2 = new Image("file:horseRight2.png", 0, 100, true, false);
-
+	final Image SHEEP1 = new Image("file:sheep.png", 0, 85, true, false);
+	final Image SHEEP2 = new Image("file:sheep2.png", 0, 85, true, false);
+	final Image BACON = new Image("file:bacon.png", 0, 75, true, false);
+	final Image BACKGROUND = new Image("file:background.png", 1920, 0, true, false);
 	
 
 	public static void main(String[] args){
@@ -38,8 +41,8 @@ public class Porkins extends Application{
 		g.window.setScene(g.sc);
 		g.window.show();
 		
-		g.gc.setFill(Color.DARKRED);
-		g.gc.fillRect(1720, 0, 1820, 1080);
+		//g.gc.setFill(Color.DARKRED);
+		//g.gc.fillRect(1720, 0, 1820, 1080);
 		final long lastTime = System.nanoTime();
 		
 		final PigSprite pigSprite = new PigSprite(PIGRIGHT, 0, 0, PIGRIGHT.getWidth(), PIGLEFT.getHeight(), 0, 5);
@@ -49,6 +52,9 @@ public class Porkins extends Application{
 		final HorseSprite h2 = new HorseSprite(HORSERIGHT1, 200, 880, HORSERIGHT1.getWidth(), HORSERIGHT1.getHeight(), 5, 0);
 		h2.setLeft(100);
 		h2.setRight(800);
+		final SheepSprite s1 = new SheepSprite(SHEEP1, 300, 200, SHEEP1.getWidth(), SHEEP1.getHeight(), 3, 1);
+		
+		final Bacon b1 = new Bacon(BACON, 1000, 880);
 
 		int counter = 0;
 		new AnimationTimer(){
@@ -57,8 +63,11 @@ public class Porkins extends Application{
 				//g.gc.drawImage(pig.img, pig.getLocation().getX(), pig.getLocation().getY());
 				//pig.fall();
 				//long newTime = currentTime;
+				
 				g.gc.setFill(Color.BLACK);
 				g.gc.fillRect(0,  0,  1920 , 1080);
+				
+				//g.gc.drawImage(BACKGROUND, BACKGROUND.getWidth(), BACKGROUND.getHeight());
 				
 				double elapsedTime = (currentTime - lastTime)/1000000000.0;
 				//lastTime.setValue(currentTime);
@@ -111,10 +120,13 @@ public class Porkins extends Application{
 				pigSprite.move(pigSprite.xVel, pigSprite.yVel);
 				pigSprite.render(g.gc);
 				pigSprite.decrHealth();
+				
+				//horse1
 				h1.move(h1.xVel);
 				if(h1.xVel>0){
-					if(currentTime%2200000000L==0){
-						System.out.println("time");
+					//System.out.println(currentTime%1000000000L);
+					if(currentTime%1000000000<=10000000){
+						//System.out.println("time");
 						h1.changeImg();
 						if(h1.imgNum==1)
 							h1.image = HORSERIGHT1;
@@ -130,7 +142,7 @@ public class Porkins extends Application{
 				}
 				if(h1.xVel<0){
 					if(currentTime%2200000000L==0){
-						System.out.println("time");
+						//System.out.println("time");
 						h1.changeImg();
 						if(h1.imgNum==1)
 							h1.image = HORSELEFT1;
@@ -144,6 +156,55 @@ public class Porkins extends Application{
 					}
 				}
 				h1.render(g.gc);
+				
+				//horse2
+				h2.move(h2.xVel);
+				if(h2.xVel>0){
+					//System.out.println(currentTime%1000000000L);
+					if(currentTime%1000000000<=10000000){
+						//System.out.println("time");
+						h2.changeImg();
+						if(h2.imgNum==1)
+							h2.image = HORSERIGHT1;
+						else
+							h2.image = HORSERIGHT2;
+					}else{
+						if(h2.imgNum==1)
+							h2.image = HORSERIGHT1;
+						else
+							h2.image = HORSERIGHT2;
+					}
+						
+				}
+				if(h2.xVel<0){
+					if(currentTime%2200000000L==0){
+						//System.out.println("time");
+						h2.changeImg();
+						if(h2.imgNum==1)
+							h2.image = HORSELEFT1;
+						else
+							h2.image = HORSELEFT2;
+					}else{
+						if(h2.imgNum==1)
+							h2.image = HORSELEFT1;
+						else
+							h2.image = HORSELEFT2;
+					}
+				}
+				h2.render(g.gc);
+				
+				//sheep
+				s1.move(s1.xVel, s1.yVel);
+				if(s1.xVel>0)
+					s1.image = SHEEP2;
+				if(s1.xVel<0)
+					s1.image = SHEEP1;
+				s1.render(g.gc);
+				
+				//bacon
+				b1.render(g.gc);
+				
+				//health bar
 				g.gc.setFill(Color.DARKRED);
 				g.gc.fillRect(0, 980, pigSprite.health, 1080);
 				

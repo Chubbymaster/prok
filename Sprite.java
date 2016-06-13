@@ -1,5 +1,7 @@
 package porkins.game;
 
+import java.awt.Point;
+
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -13,6 +15,8 @@ public class Sprite {
 	protected double height;
 	protected double xVel;
 	protected double yVel;
+	//public Polygon hitbox;
+	public Rectangle2D hitbox;
 	
 	public Sprite(Image img, double xPos, double yPos, double w, double h, double xVelocity, double yVelocity){
 		image = img;
@@ -22,6 +26,10 @@ public class Sprite {
 		height = h;
 		xVel = xVelocity;
 		yVel = yVelocity;
+		//Point[] points = {new Point((int)x, (int)y), new Point((int)(x+img.getWidth()), (int)y), 
+		//new Point( (int)(x+img.getWidth()), (int)(y+img.getHeight()) ), new Point((int) x, (int)(y+img.getHeight()))};
+		//hitbox = new Polygon(points, new Point((int)x, (int)y), 0);
+		hitbox = new Rectangle2D(x, y, width, height);
 	}
 	
 	public double getX(){
@@ -60,13 +68,7 @@ public class Sprite {
 		width = w;
 		height = h;
 	}
-	//use move instead of update
-	/*
-	public void update(double time){
-		x += xVel*time;
-		y += yVel*time;
-	}
-	*/
+	
 	public void move(double xDist, double yDist){
 		x += xDist;
 		y += yDist;
@@ -78,7 +80,7 @@ public class Sprite {
 	}
 	
 	public Rectangle2D getBoundary(){
-		return new Rectangle2D(x, y, width, height);
+		return hitbox;
 	}
 	
 	public boolean intersects(Sprite s){

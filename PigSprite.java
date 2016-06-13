@@ -7,13 +7,20 @@ public class PigSprite extends Sprite {
 	final int bottom = 880;
 	final int left = 0;
 	final int right = 1820;
-	
-	
-	
+	int health = 1820;
+	int counter = 15;
+	int counter2 = 15;
+	boolean intersect;
+	boolean intersect2;
+	double origXVel, origYVel;
 	
 	public PigSprite(Image image, double xPos, double yPos, double w, double h,
 			double xVelocity, double yVelocity) {
 		super(image, xPos, yPos, w, h, xVelocity, yVelocity);
+		intersect= false;
+		intersect2 = false;
+		origXVel = xVel;
+		origYVel = yVel;
 	}
 	
 	public void move(double xChange, double yChange){
@@ -36,6 +43,13 @@ public class PigSprite extends Sprite {
 			y = bottom;
 		}
 			
+	}
+	
+	
+	public void decrHealth(){
+		health-=.25;
+		if(health<0)
+			health = 0;
 	}
 
 }

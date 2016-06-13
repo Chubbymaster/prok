@@ -239,33 +239,18 @@ public class Porkins extends Application{
 				w1.render(g.gc);
 				//double origVel = 0;
 				if(w1.intersect(p1)){
-					p1.intersect = true;
-					p1.origXVel = p1.xVel;
+					if((p1.x<w1.x || p1.x<=(w1.x + w1.width)) && p1.y<=w1.height){
+						p1.intersect = true;
+						p1.origXVel = p1.xVel;
+					}else{
+						p1.intersect2 = true;
+						p1.origYVel = p1.yVel;
+					}
 				}
-				/*
-				if(p1.y<=w1.y+w1.height && (p1.x>=w1.x && p1.x<w1.x + w1.width)){
-					p1.intersect2 = true;
-					p1.origYVel = p1.yVel;
-				}
-				*/
+				if(p1.intersect)
+					w1.bounceX(p1);
 				if(p1.intersect2)
-					p1.yVel = -p1.origYVel;
-				if(p1.intersect){
-					p1.xVel = -p1.origXVel;
-					p1.counter--;
-					/*
-					if(p1.x<w1.x)
-						p1.x = p1.x-40;
-					else
-						p1.x = p1.x+40;
-					*/
-				}
-				if(p1.counter==0){
-					//p1.xVel = p1.origVel;
-					p1.counter = 15;
-					p1.intersect = false;
-				}
-				
+					w1.bounceY(p1);
 			}
 		}.start();
 	}

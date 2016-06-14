@@ -221,14 +221,16 @@ public class Porkins extends Application{
 				
 			//bacon
 				
-				if(b1.intersect(p1)){
+				if(b1.intersects(p1)){
 					b1.x = 0;
 					b1.y = 1005;
-					p1.health += 10;
+					p1.health += 150;
 					if(p1.health>1820)
 						p1.health = 1820;
+					b1.touched = true;
 				}
-				b1.render(g.gc);
+				if(!b1.touched)
+					b1.render(g.gc);
 					
 				
 			//health bar
